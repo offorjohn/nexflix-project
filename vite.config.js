@@ -7,7 +7,7 @@ export default defineConfig({
 	server: {
 		proxy: {
 			"/api": {
-				target: "https://sprinkle-ionian-sodalite.glitch.me/",
+				target: "http://localhost:5000",
 			},
 		},
 	},
