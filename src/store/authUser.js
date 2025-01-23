@@ -50,16 +50,28 @@ export const useAuthStore = create((set) => ({
     }
   },
   authCheck: async () => {
-    set({ isCheckingAuth: true });
-
-    // Force the user to always be set as authenticated
-    set({
-      user: {
-        id: "hardcodedUserId",
-        name: "John Doe",
-        email: "john.doe@example.com",
-      }, // Hardcoded user data
-      isCheckingAuth: false,
-    });
-  },
+	set({ isCheckingAuth: true });
+  
+	try {
+	  const response = await fetch('https://wonderful-deserted-mall.glitch.me/api/data'); // Replace with your backend API endpoint
+	  if (!response.ok) {
+		throw new Error('Failed to fetch user data');
+	  }
+  
+	  const userData = await response.json(); // Assuming the backend returns JSON user data
+  
+	  // Update the state with the fetched user data
+	  set({
+		user: userData,
+		isCheckingAuth: false,
+	  });
+	} catch (error) {
+	  console.error('Error fetching user data:', error);
+	  set({
+		isCheckingAuth: false,
+	  });
+	  // Optionally handle authentication failure (e.g., set user to null, show error, etc.)
+	}
+  }
+  
 }));
