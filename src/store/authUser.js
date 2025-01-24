@@ -86,7 +86,7 @@ export const useAuthStore = create((set) => ({
       // If no user data, proceed with API call
       try {
         const response = await axios.get(
-          "https://wonderful-deserted-mall.glitch.me/api/v1/auth/authCheck"
+          "https://sprinkle-ionian-sodalite.glitch.me/api/v1/auth/authCheck"
         );
         set({ user: response.data.user, isCheckingAuth: false });
       } catch (error) {
