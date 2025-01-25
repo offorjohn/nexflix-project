@@ -149,7 +149,7 @@ const WatchPage = () => {
 				<div className='aspect-video mb-8 p-2 sm:px-10 md:px-32'>
 				{trailers.length > 0 ? (
   <>
-    <h2 className="text-center text-2xl font-bold mb-4">Video Trailers</h2> {/* Title added here */}
+    <h2 className="text-center text-2xl font-bold mb-4">Lion King</h2> {/* Title added here */}
     {trailers.map((trailer, index) => (
       // eslint-disable-next-line react/jsx-key
       <div className="relative pb-[56.25%] mb-4"> {/* Aspect ratio wrapper (16:9) */}
