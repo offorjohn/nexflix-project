@@ -4,7 +4,6 @@ import { useContentStore } from "../store/content";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import ReactPlayer from "react-player";
 import { ORIGINAL_IMG_BASE_URL, SMALL_IMG_BASE_URL } from "../utils/constants";
 import { formatReleaseDate } from "../utils/dateFunction";
 import WatchPageSkeleton from "../components/skeletons/WatchPageSkeleton";
@@ -21,19 +20,32 @@ const WatchPage = () => {
 	const sliderRef = useRef(null);
 
 	useEffect(() => {
-		const getTrailers = async () => {
-			try {
-				const res = await axios.get(`https://sprinkle-ionian-sodalite.glitch.me/api/v1/${contentType}/${id}/trailers`);
-				setTrailers(res.data.trailers);
-			} catch (error) {
-				if (error.message.includes("404")) {
-					setTrailers([]);
-				}
+		const getTrailers = () => {
+			// Predefined trailers with Google Drive preview links
+			const trailersWithPreviewLinks = [
+				{
+					previewUrl: "https://drive.google.com/file/d/1_8lJX8zdg9ot5ONR4NA_EPbmLyNyWdGS/preview",
+				},
+			
+				// Add more trailers as needed
+			];
+
+			// If trailers are found, set them, otherwise set a default
+			if (trailersWithPreviewLinks.length > 0) {
+				setTrailers(trailersWithPreviewLinks);
+			} else {
+				// Default trailer
+				setTrailers([
+					{
+						previewUrl: "https://drive.google.com/file/d/1_8lJX8zdg9ot5ONR4NA_EPbmLyNyWdGS/preview",
+					},
+				]);
 			}
 		};
 
+		// Call the function on component mount
 		getTrailers();
-	}, [contentType, id]);
+	}, [contentType, id]); // Only re-run if contentType or id change
 
 	useEffect(() => {
 		const getSimilarContent = async () => {
@@ -135,15 +147,28 @@ const WatchPage = () => {
 				)}
 
 				<div className='aspect-video mb-8 p-2 sm:px-10 md:px-32'>
-					{trailers.length > 0 && (
-						<ReactPlayer
-							controls={true}
-							width={"100%"}
-							height={"70vh"}
-							className='mx-auto overflow-hidden rounded-lg'
-							url={`https://www.youtube.com/watch?v=${trailers[currentTrailerIdx].key}`}
-						/>
-					)}
+				{trailers.length > 0 ? (
+  <>
+    <h2 className="text-center text-2xl font-bold mb-4">Video Trailers</h2> {/* Title added here */}
+    {trailers.map((trailer, index) => (
+      // eslint-disable-next-line react/jsx-key
+      <div className="relative pb-[56.25%] mb-4"> {/* Aspect ratio wrapper (16:9) */}
+        <iframe
+          key={index}
+          src={trailer.previewUrl}
+          className="absolute top-0 left-0 w-full h-full"
+          frameBorder="0"
+          allow="autoplay; encrypted-media"
+          title={`Trailer ${index + 1}`}
+        ></iframe>
+      </div>
+    ))}
+  </>
+) : (
+  <p>No trailers available</p>
+)}
+
+					
 
 					{trailers?.length === 0 && (
 						<h2 className='text-xl text-center mt-5'>

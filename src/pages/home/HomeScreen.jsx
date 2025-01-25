@@ -60,7 +60,9 @@ const HomeScreen = () => {
             </h1>
             <p className="mt-2 text-lg">Trending</p>
 
-            <p className="mt-4 text-lg">Lion King in development</p>
+            <p className="mt-4 text-lg">🌟 The Lion King: A Timeless Classic in Development 🦁🌍
+
+The Lion King 🦁 has always held a special place in the hearts of audiences, and it's no surprise that the magic continues with its ongoing development. Whether it's the iconic animated movie 🎥 from 1994 or the stunning live-action remake in 2019, this beloved tale of Simba's journey 🐾 to reclaim his kingdom has captivated millions. But the story isn't over yet! Here's a deeper dive into what’s in store for The Lion King 🦁💫.</p>
           </div>
 
           {/* Action Buttons */}
